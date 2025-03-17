@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PassVault</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="vault.png">
+
+</head>
+
+<body>
+  <canvas id="particles"></canvas>
+  <nav>
+    <div class="logo">PassVault</div>
+    <img class="logoimg" src="vault.png" alt="" srcset="">
+    <ul>
+      <li> <a href="home.html" class="nav-btn">Home</a></li>
+      <li>Contact</li>
+      <li><a href="saved-passwords.html" class="nav-btn">Saved Passwords</a></li>
+
+
+    </ul>
+  </nav>
+
+  <!-- Container -->
+  <div class="container">
+    <h1>Password Manager</h1>
+    <p>Securely store and manage your passwords with ease.</p>
+    <br>
+    <form id="password-form">
+      <div class="input-group">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" placeholder="Enter website" required>
+      </div>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" required>
+      </div>
+
+      <div class="input-group password-group">
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" placeholder="Enter password">
+          <span class="eye-icon" onclick="togglePassword()">
+            <i class="fa-solid fa-eye"></i>
+          </span>
+        </div>
+        <div class="password-strength-container">
+          <div id="password-strength-bar"></div>
+          <span id="password-strength-text"></span>
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn">Save Password</button>
+    </form>
+    <br> <br>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
