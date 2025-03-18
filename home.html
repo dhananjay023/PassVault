@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,20 +14,21 @@
     <!-- Three.js for 3D effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
+
 <body>
     <canvas id="three-canvas"></canvas>
     <nav class="navbar">
-        <ul>
+        <div class="logo">PassVault</div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#stats">Stats</a></li>
-            <a href="index.html" class="nav-btn">Password Manager 🔑</a>
+            <li><a href="index.html" class="nav-btn">Password Manager 🔑</a></li>
         </ul>
-        <button id="themeToggle" class="floating-btn">🌙</button>
-
-
     </nav>
+    <button id="themeToggle" class="floating-btn">🌙</button>
 
     <section id="home" class="hero">
         <div class="hero-content">
@@ -35,7 +37,7 @@
             <button class="btn" id="getStartedBtn">Get Started</button>
         </div>
     </section>
-    
+
     <section id="features">
         <h2>Why Choose Our Password Manager?</h2><br>
         <div class="features-grid">
@@ -56,7 +58,7 @@
             </div>
         </div>
     </section>
-    
+
     <section id="how-it-works">
         <h2>How It Works</h2> <br>
         <div class="steps">
@@ -77,18 +79,20 @@
             </div>
         </div>
     </section>
-    
     <section id="stats">
         <div class="stat">
-            <h3 id="passwordsCount">0</h3>
-            <p>Passwords Saved</p>
+            <span class="counter" data-target="1000">0</span>
+            <p>Users</p>
         </div>
         <div class="stat">
-            <h3 id="usersCount">0</h3>
-            <p>Users Secured</p>
+            <span class="counter" data-target="500">0</span>
+            <p>Password Saved</p>
         </div>
     </section>
-    
+
+    </section>
+
     <script src="home.js"></script>
 </body>
+
 </html>

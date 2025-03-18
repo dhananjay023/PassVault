@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     loadPasswords(); // Load saved passwords from localStorage
     
 });
+function toggleMenu() {
+    document.querySelector(".nav-links").classList.toggle("active");
+}
 
 // **Toggle password visibility in input field**
 function togglePassword() {
