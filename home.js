@@ -1,15 +1,67 @@
 document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".nav-links");
-    const menuIcon = menuToggle.querySelector("i"); // Get the icon
     const themeToggle = document.getElementById("themeToggle");
     const body = document.body;
+    const mobileQuery = window.matchMedia("(max-width: 768px)");
+
+    navLinks.style.display = "none";
 
     function toggleMenu() {
-        const navLinks = document.querySelector(".nav-links");
-        navLinks.classList.toggle("active");
+        if (mobileQuery.matches) {
+            navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
+            updateMenuIcon();
+        }
     }
-    // ✅ Get Started Button Smooth Scroll
+    // ✅ Toggle Menu (Only in Mobile View)
+    function toggleMenu() {
+        if (navLinks.style.display === "none" || navLinks.style.display === "") {
+            navLinks.style.display = "flex"; // Show menu
+        } else {
+            navLinks.style.display = "none"; // Hide menu
+        }
+        updateMenuIcon();
+    }
+    function updateMenuIcon() {
+        const menuIcon = menuToggle.querySelector("i");
+        if (menuIcon) {
+            const isActive = navLinks.style.display === "flex";
+            menuIcon.classList.toggle("fa-bars", !isActive);
+            menuIcon.classList.toggle("fa-times", isActive);
+        }
+    }
+    if (menuToggle) {
+        menuToggle.addEventListener("click", toggleMenu);
+    }
+
+    function handleResize() {
+        if (mobileQuery.matches) {
+            navLinks.style.display = "none"; // Hide menu in mobile
+        } else {
+            navLinks.style.display = "flex"; // Show menu in desktop
+        }
+        updateMenuIcon();
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Run on load to set the correct state
+    // ✅ Close menu when clicking a link (Only in Mobile View)
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", function () {
+            if (mobileQuery.matches) {
+                navLinks.style.display = "none";
+                updateMenuIcon();
+            }
+        });
+    });
+    // ✅ Close menu if clicking outside (optional)
+    document.addEventListener("click", function (event) {
+        if (!menuToggle.contains(event.target) && !navLinks.contains(event.target)) {
+            navLinks.style.display = "none";
+            updateMenuIcon();
+        }
+    });
+    // ✅ Get Started Smooth Scroll
     const getStartedBtn = document.getElementById("getStartedBtn");
     if (getStartedBtn) {
         getStartedBtn.addEventListener("click", function () {
@@ -17,65 +69,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ✅ Menu Toggle Functionality
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener("click", function () {
-            navLinks.classList.toggle("active");
-
-            // ✅ Optional: Toggle menu icon (☰ -> ✖)
-            const menuIcon = menuToggle.querySelector("i");
-            if (menuIcon) {
-                menuIcon.classList.toggle("fa-bars");
-                menuIcon.classList.toggle("fa-times");
-            }
-        });
-
-        // ✅ Close menu when clicking a link
-        document.querySelectorAll(".nav-links a").forEach(link => {
-            link.addEventListener("click", function () {
-                navLinks.classList.remove("active");
-
-                // ✅ Ensure menu icon resets to ☰
-                const menuIcon = menuToggle.querySelector("i");
-                if (menuIcon) {
-                    menuIcon.classList.add("fa-bars");
-                    menuIcon.classList.remove("fa-times");
-                }
-            });
-        });
-    } else {
-        console.error("⚠️ Menu toggle or nav-links element not found.");
+    // ✅ Dark Mode Toggle
+    function toggleDarkMode() {
+        body.classList.toggle("dark-mode");
+        updateDarkModeIcon();
+        localStorage.setItem("darkMode", body.classList.contains("dark-mode") ? "enabled" : "disabled");
     }
 
-    // ✅ Dark Mode Toggle
+    function updateDarkModeIcon() {
+        themeToggle.style.opacity = "0"; // Fade out
+        setTimeout(() => {
+            themeToggle.innerHTML = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+            themeToggle.style.opacity = "1"; // Fade in
+        }, 200);
+    }
+
+    // ✅ Apply saved theme on load
+    if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark-mode");
+    }
+    updateDarkModeIcon();
+
     if (themeToggle) {
-        function toggleDarkMode() {
-            body.classList.toggle("dark-mode");
-            updateIcon();
-            saveTheme();
-        }
-
-        function updateIcon() {
-            themeToggle.style.opacity = "0"; // Fade out
-            setTimeout(() => {
-                themeToggle.innerHTML = body.classList.contains("dark-mode") ? "☀️" : "🌙";
-                themeToggle.style.opacity = "1"; // Fade in
-            }, 200);
-        }
-
-        function saveTheme() {
-            localStorage.setItem("darkMode", body.classList.contains("dark-mode") ? "enabled" : "disabled");
-        }
-
-        // ✅ Apply saved theme on load
-        if (localStorage.getItem("darkMode") === "enabled") {
-            body.classList.add("dark-mode");
-            updateIcon();
-        }
-
         themeToggle.addEventListener("click", toggleDarkMode);
-    } else {
-        console.warn("⚠️ Dark mode toggle not found.");
     }
 
     // ✅ GSAP Animations
@@ -107,14 +123,14 @@ document.addEventListener("DOMContentLoaded", function () {
             scale: 1,
             opacity: 1,
             duration: 0.6,
-            delay: index * 0.3,
+            delay: index * 0.1,
             ease: "power2.out"
         });
     });
 
     // ✅ Counter Animation
     const counters = document.querySelectorAll(".counter");
-    const speed = 150; // Adjust speed
+    const speed = 150;
 
     counters.forEach(counter => {
         function updateCount() {
