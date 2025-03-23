@@ -96,6 +96,7 @@ body {
     text-decoration: none;
     right: 2%;
     position: absolute;
+    font-size: 13px;
 }
 .nav-btn2:hover {
     background-color: #45a049;
@@ -180,7 +181,7 @@ body.dark-mode #themeToggle {
 }
 /* main Section */
 .hero {
-    height: 90vh;
+    height: 91vh;
     display: flex;
     align-items: center;
     justify-content: center;
